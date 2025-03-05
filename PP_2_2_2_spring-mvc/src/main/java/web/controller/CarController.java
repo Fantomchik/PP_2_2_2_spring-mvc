@@ -5,23 +5,24 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import web.service.CarServiceImpl;
+import web.service.CarService;
+
 
 
 @Controller
 public class CarController {
 
-    private final CarServiceImpl carServiceImpl;
+    private final CarService carService;
 
     @Autowired
-    public CarController(CarServiceImpl carServiceImpl) {
-        this.carServiceImpl = carServiceImpl;
+    public CarController(CarService carService) {
+        this.carService = carService;
     }
 
     @GetMapping("cars")
     public String printCarTable(Model model, @RequestParam(value = "count", required = false) Integer count) {
 
-        model.addAttribute("table", carServiceImpl.outWithParam(count));
+        model.addAttribute("table", carService.outWithParam(count));
 
         return "cars";
     }
